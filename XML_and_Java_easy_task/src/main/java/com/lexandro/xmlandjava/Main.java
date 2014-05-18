@@ -39,7 +39,7 @@ public class Main {
 
         List<Element> location_properties = root.getChildren("LOCATION_PROPERTIES");
         for (Element loc : location_properties) {
-            if (loc.getAttributeValue("NAME").startsWith("STN") == true) {
+            if (loc.getAttributeValue("NAME").startsWith("STN")) {
                 System.out.println("-------------------------------------------------");
                 System.out.println("            Departure Station : " + loc.getAttributeValue("NAME"));
                 List<Element> segment_properties = loc.getChildren("SEGMENT_PROPERTIES");
