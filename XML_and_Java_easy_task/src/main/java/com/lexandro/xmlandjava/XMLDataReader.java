@@ -1,7 +1,6 @@
 package com.lexandro.xmlandjava;
 
 import com.lexandro.xmlandjava.domain.Location;
-import com.lexandro.xmlandjava.domain.NextLocation;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -39,8 +38,7 @@ public class XMLDataReader {
                 List<Element> nextLocationElements = seg.getChildren("NEXT_LOCATION");
                 for (Element next : nextLocationElements) {
                     String arrivalName = next.getAttributeValue("NAME");
-                    NextLocation nextLocation = new NextLocation();
-                    nextLocation.setLocation(result.get(arrivalName));
+                    Location nextLocation = result.get(arrivalName);
                     nextLocation.setLength(Integer.parseInt(next.getAttributeValue("LENGTH")));
                     nextLocation.setSpeed(Integer.parseInt(next.getAttributeValue("SPEED")));
                     location.addNextLocation(nextLocation);

@@ -1,7 +1,6 @@
 package com.lexandro.xmlandjava;
 
 import com.lexandro.xmlandjava.domain.Location;
-import com.lexandro.xmlandjava.domain.NextLocation;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 
@@ -12,8 +11,8 @@ import java.util.Map;
 
 public class Main {
 
-    private static final String XML_ROUTES = "XML_and_Java_easy_task/target/classes/routes_small.xml";
     //    private static final String XML_ROUTES = "XML_and_Java_easy_task/target/classes/routes_small.xml";
+    private static final String XML_ROUTES = "XML_and_Java_easy_task/target/classes/routes_full.xml";
     static Element root;
 
     public static void main(String[] args) throws JDOMException, IOException {
@@ -24,9 +23,9 @@ public class Main {
 
     private static List<Location> listStationTimes(Location location, List<Location> route) {
         route.add(location);
-        for (NextLocation nextLocation : location.getNextLocations()) {
-            if (nextLocation.getLocation() != null) {
-                listStationTimes(nextLocation.getLocation(), route);
+        for (Location nextLocation : location.getNextLocations()) {
+            if (nextLocation != null && !route.contains(nextLocation)) {
+                listStationTimes(nextLocation, route);
             }
         }
         return route;
