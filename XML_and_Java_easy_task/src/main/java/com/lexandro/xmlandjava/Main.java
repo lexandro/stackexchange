@@ -1,8 +1,10 @@
 package com.lexandro.xmlandjava;
 
 import com.lexandro.xmlandjava.domain.Location;
+import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -12,7 +14,7 @@ import java.util.Map;
 
 public class Main {
 
-    //    private static final String XML_ROUTES = "XML_and_Java_easy_task/target/classes/routes_small.xml";
+    //        private static final String XML_ROUTES = "XML_and_Java_easy_task/target/classes/routes_small.xml";
     private static final String XML_ROUTES = "XML_and_Java_easy_task/target/classes/routes_full.xml";
     static Element root;
 
@@ -22,6 +24,7 @@ public class Main {
         // do it for one location
 //        printRouteFor(locations, "STN10");
         // do it for all locations
+//        onestep4all();
         for (Location location : locations.values()) {
             printRouteFor(locations, location.getName());
         }
@@ -33,7 +36,7 @@ public class Main {
         List<Location> oneRoute = listStationTimes(locations.get(stationName), new LinkedList<Location>());
 
         if (!oneRoute.isEmpty()) {
-
+            System.out.println("-------------------------------------------------");
 
             Iterator<Location> iterator = oneRoute.iterator();
             Location routeItem;
@@ -43,14 +46,14 @@ public class Main {
             int allTime = 0;
             int lastTime = routeItem.getTime();
             allTime += lastTime;
-            System.out.println("Departure station: " + routeItem.getName());
+            System.out.println("            Departure station: " + routeItem.getName());
             // remaining items
             int count = 1;
             while (iterator.hasNext()) {
                 routeItem = iterator.next();
                 //
                 if (count < oneRoute.size() - 1) {
-                    System.out.println("Arrival: " + routeItem.getName() + " --- " + "Time to go : " + lastTime);
+                    System.out.println(String.format("Arrival : %6s  ---  Time to go : %4d seconds", routeItem.getName(), lastTime));
                 }
                 lastTime = routeItem.getTime();
                 allTime += lastTime;
@@ -58,7 +61,7 @@ public class Main {
                 count++;
             }
             // last item
-            System.out.println("Arrival: " + routeItem.getName() + " --- " + " Total time : " + allTime);
+            System.out.println(String.format("Arrival : %6s  ---  Total time : %4d seconds", routeItem.getName(), allTime));
         }
     }
 
@@ -75,9 +78,12 @@ public class Main {
     }
 
 
-    public static int onestep4all() {
+    public static int onestep4all() throws JDOMException, IOException {
         //int cpt = 0;
         int timeonestep = 0;
+        SAXBuilder jdomBuilder = new SAXBuilder();
+        Document jdomDocument = jdomBuilder.build(XML_ROUTES);
+        root = jdomDocument.getRootElement();
 
         List<Element> location_properties = root.getChildren("LOCATION_PROPERTIES");
         for (Element loc : location_properties) {
