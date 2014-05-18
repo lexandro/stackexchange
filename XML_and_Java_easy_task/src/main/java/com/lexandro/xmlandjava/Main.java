@@ -5,6 +5,7 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -18,14 +19,57 @@ public class Main {
     public static void main(String[] args) throws JDOMException, IOException {
 
         Map<String, Location> locations = XMLDataReader.readLocations(XML_ROUTES);
-        System.out.println(listStationTimes(locations.get("STN10"), new LinkedList<Location>()));
+        // do it for one location
+//        printRouteFor(locations, "STN10");
+        // do it for all locations
+        for (Location location : locations.values()) {
+            printRouteFor(locations, location.getName());
+        }
+
+    }
+
+    private static void printRouteFor(Map<String, Location> locations, String stationName) {
+        // build up the list of stations by one route
+        List<Location> oneRoute = listStationTimes(locations.get(stationName), new LinkedList<Location>());
+
+        if (!oneRoute.isEmpty()) {
+
+
+            Iterator<Location> iterator = oneRoute.iterator();
+            Location routeItem = null;
+            // list first item
+            int allTime = 0;
+            int lastTime = 0;
+            //
+            routeItem = iterator.next();
+            lastTime = routeItem.getTime();
+            allTime += lastTime;
+            System.out.println("Departure station: " + routeItem.getName());
+            // remaining items
+            int count = 1;
+            while (iterator.hasNext()) {
+                routeItem = iterator.next();
+                //
+                if (count < oneRoute.size() - 1) {
+                    System.out.println("Arrival: " + routeItem.getName() + " --- " + "Time to go : " + lastTime);
+                }
+                lastTime = routeItem.getTime();
+                allTime += lastTime;
+                //
+                count++;
+            }
+            // last item
+            System.out.println("Arrival: " + routeItem.getName() + " --- " + " Total time : " + allTime);
+        }
     }
 
     private static List<Location> listStationTimes(Location location, List<Location> route) {
         route.add(location);
-        for (Location nextLocation : location.getNextLocations()) {
-            if (nextLocation != null && !route.contains(nextLocation)) {
-                listStationTimes(nextLocation, route);
+        if (location.getNextLocations() != null) {
+            for (Location nextLocation : location.getNextLocations()) {
+                if (nextLocation != null && !route.contains(nextLocation)) {
+                    listStationTimes(nextLocation, route);
+                }
             }
         }
         return route;

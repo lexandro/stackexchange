@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>XML_and_Java_easy_task</module>
+        <module>MatrixAsObject</module>
     </modules>
     <!-- -->
     <description>Solution for

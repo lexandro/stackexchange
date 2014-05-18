@@ -39,9 +39,11 @@ public class XMLDataReader {
                 for (Element next : nextLocationElements) {
                     String arrivalName = next.getAttributeValue("NAME");
                     Location nextLocation = result.get(arrivalName);
-                    nextLocation.setLength(Integer.parseInt(next.getAttributeValue("LENGTH")));
-                    nextLocation.setSpeed(Integer.parseInt(next.getAttributeValue("SPEED")));
-                    location.addNextLocation(nextLocation);
+                    if (nextLocation != null) {
+                        nextLocation.setLength(Integer.parseInt(next.getAttributeValue("LENGTH")));
+                        nextLocation.setSpeed(Integer.parseInt(next.getAttributeValue("SPEED")));
+                        location.addNextLocation(nextLocation);
+                    }
 //                    int L = Integer.parseInt(next.getAttributeValue("LENGTH"));
 //                    int S = Integer.parseInt(next.getAttributeValue("SPEED"));
 //                    timeonestep = L / S;

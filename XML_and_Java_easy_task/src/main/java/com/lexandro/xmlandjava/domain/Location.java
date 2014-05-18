@@ -9,7 +9,6 @@ public class Location {
     private String name;
 
     private int length;
-    private int time;
     private int speed;
 
     private List<Location> nextLocations;
@@ -53,20 +52,17 @@ public class Location {
         this.length = length;
     }
 
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
-    }
-
     public int getSpeed() {
+
         return speed;
     }
 
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public int getTime() {
+        return length / speed;
     }
 
     @Override
