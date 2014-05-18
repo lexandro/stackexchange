@@ -36,13 +36,12 @@ public class Main {
 
 
             Iterator<Location> iterator = oneRoute.iterator();
-            Location routeItem = null;
-            // list first item
-            int allTime = 0;
-            int lastTime = 0;
-            //
+            Location routeItem;
+            // get the first item
             routeItem = iterator.next();
-            lastTime = routeItem.getTime();
+            //
+            int allTime = 0;
+            int lastTime = routeItem.getTime();
             allTime += lastTime;
             System.out.println("Departure station: " + routeItem.getName());
             // remaining items
