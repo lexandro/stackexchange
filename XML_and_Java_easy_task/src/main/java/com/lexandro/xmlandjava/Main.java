@@ -22,12 +22,12 @@ public class Main {
 
         Map<String, Location> locations = XMLDataReader.readLocations(XML_ROUTES);
         // do it for one location
-//        printRouteFor(locations, "STN10");
+        printRouteFor(locations, "X547");
         // do it for all locations
 //        onestep4all();
-        for (Location location : locations.values()) {
-            printRouteFor(locations, location.getName());
-        }
+//        for (Location location : locations.values()) {
+//            printRouteFor(locations, location.getName());
+//        }
 
     }
 

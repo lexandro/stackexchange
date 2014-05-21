@@ -11,6 +11,9 @@
     <modules>
         <module>XML_and_Java_easy_task</module>
         <module>MatrixAsObject</module>
+        <module>ClumpsInArray</module>
+        <module>IsAnagram</module>
+        <module>Anagram</module>
     </modules>
     <!-- -->
     <description>Solution for
