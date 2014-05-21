@@ -53,34 +53,6 @@ public class Main {
             System.err.println("Failed " + count + " times out of " + strs.length);
     }
 
-    // 4. with the help of one primitive variable: int i
-    public static boolean isAnagram2(String s1, String s2) {
-        if (s1 == null || s2 == null) {
-            return false;
-        }
-
-// [\\s\\W\\d]
-        s1 = s1.replaceAll("[^a-zA-Z]", "").toLowerCase();
-        s2 = s2.replaceAll("[^a-zA-Z]", "").toLowerCase();
-
-        if (s1.length() != s2.length()) {
-            return false;
-        }
-
-        for (int i = 0; i < s1.length(); i++) {
-            if (!s2.contains("" + s1.charAt(i))) {
-                return false;
-            }
-
-            s2 = s2.replaceFirst("" + s1.charAt(i), "");
-        }
-
-        if (s2.equals(""))
-            return true;
-        else
-            return false;
-    }
-
     private static boolean isAnagram(String first, String second) {
         letterCounter = new int[26];
         int i = first.length() > second.length() ? first.length() : second.length();
